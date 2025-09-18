@@ -1,5 +1,5 @@
 // server.js
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -33,9 +33,7 @@ const Contact = mongoose.model("Contact", contactSchema);
 
 // API Route - Save contact form
 // Routes
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
+
 app.post("/api/contact", async (req, res) => {
   try {
     const { name, email, message } = req.body;

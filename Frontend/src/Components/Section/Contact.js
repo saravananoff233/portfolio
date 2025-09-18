@@ -18,7 +18,7 @@ const Contact = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-const res = await fetch("https://your-railway-backend-url.up.railway.app/api/contact", {
+const res = await fetch("https:portfolio-production-eaf0.up.railway.app", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(formData),

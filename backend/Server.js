@@ -12,7 +12,7 @@ app.use(express.json()); // Parse JSON bodies
 
 // MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect("mongodb+srv://saravanaoff540_db_user:jA3aG1TSjNWynYdi@cluster0.nelcki7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

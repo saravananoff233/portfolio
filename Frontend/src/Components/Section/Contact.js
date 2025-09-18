@@ -18,11 +18,11 @@ const Contact = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const res = await fetch("http://localhost:5000/api/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),  // ✅ send formData directly
-  });
+const res = await fetch("https://your-railway-backend-url.up.railway.app/api/contact", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(formData),
+});
 
   const data = await res.json();
   alert(data.message);

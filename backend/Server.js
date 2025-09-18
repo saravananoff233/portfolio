@@ -1,44 +1,53 @@
+// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser");
+require("dotenv").config(); // Load environment variables
 
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.json());
+app.use(cors()); // Allow requests from any origin
+app.use(express.json()); // Parse JSON bodies
 
 // MongoDB Connection
 mongoose
-  .connect("mongodb://127.0.0.1:27017/portfolioDB", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Schema
+// Contact Schema
 const contactSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  message: String,
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  message: { type: String, required: true },
   date: { type: Date, default: Date.now },
 });
 
 const Contact = mongoose.model("Contact", contactSchema);
 
-// API Route
+// API Route - Save contact form
 app.post("/api/contact", async (req, res) => {
   try {
     const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res.status(400).json({ success: false, message: "All fields are required" });
+    }
+
     const newContact = new Contact({ name, email, message });
     await newContact.save();
-    res.json({ success: true, message: "Thank you for contacting me! I will reply soon."});
+
+    res.json({ success: true, message: "Thank you for contacting me! I will reply soon." });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Error saving data" });
+    console.error("Error saving contact:", err);
+    res.status(500).json({ success: false, message: "Server error, please try again later" });
   }
 });
 
 // Start Server
-app.listen(5000, () => console.log("🚀 Server running on http://localhost:5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

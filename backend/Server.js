@@ -1,10 +1,11 @@
 // server.js
-
+import dotenv from "dotenv";
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config(); // Load environment variables
+ // Load environment variables
 
+dotenv.config(); // loads .env
 const app = express();
 
 // Middleware
@@ -13,7 +14,7 @@ app.use(express.json()); // Parse JSON bodies
 
 // MongoDB Connection
 mongoose
-  .connect("mongodb+srv://saravanaoff540_db_user:jA3aG1TSjNWynYdi@cluster0.nelcki7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -31,6 +32,10 @@ const contactSchema = new mongoose.Schema({
 const Contact = mongoose.model("Contact", contactSchema);
 
 // API Route - Save contact form
+// Routes
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
 app.post("/api/contact", async (req, res) => {
   try {
     const { name, email, message } = req.body;

@@ -3,8 +3,8 @@ const dotenv = require("dotenv");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
- // Load environment variables
 
+ // Load environment variables
 dotenv.config(); // loads .env
 const app = express();
 
@@ -33,17 +33,8 @@ const Contact = mongoose.model("Contact", contactSchema);
 
 // API Route - Save contact form
 // Routes
-import Form from "./models/Form.js";
 
-app.post("/api/form", async (req, res) => {
-  try {
-    const form = new Form(req.body);
-    await form.save();
-    res.json({ message: "Form submitted successfully!" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+
 
 app.post("/api/contact", async (req, res) => {
   try {

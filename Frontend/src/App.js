@@ -8,7 +8,7 @@ import Skills from './Components/Section/Skills';
 import logo from './logo.svg';
 import { useEffect } from 'react';
 
-
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
    useEffect(() => {
                 // Smooth scrolling for anchor links
@@ -45,6 +45,7 @@ function App() {
 
   return (
     <div className="App">
+         <Router>
     <Header />
     <Hero />
     <About />
@@ -52,6 +53,7 @@ function App() {
     <Projects />
    <Contact />
    <Footer />
+   </Router>
     </div>
   );
 }

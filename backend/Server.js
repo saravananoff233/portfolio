@@ -34,6 +34,8 @@ const Contact = mongoose.model("Contact", contactSchema);
 // API Route - Save contact form
 // Routes
 
+// Example in Express
+
 
 
 app.post("/api/contact", async (req, res) => {
